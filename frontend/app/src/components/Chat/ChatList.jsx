@@ -68,8 +68,8 @@ function ChatList() {
                         //   user.profilePicture || "https://via.placeholder.com/50"
                         // }
                         src={
-                          post.user.profilePicture
-                            ? `${process.env.REACT_APP_API_URL}${post.user.profilePicture}`
+                          user.profilePicture
+                            ? `${process.env.REACT_APP_API_URL}${user.profilePicture}`
                             : "https://via.placeholder.com/50"
                         }
                         alt={user.username}
