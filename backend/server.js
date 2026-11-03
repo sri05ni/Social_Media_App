@@ -1,5 +1,6 @@
 const express=require('express')
 const dotenv=require('dotenv')
+const cors = require('cors');
 dotenv.config()
 
 const PORT=process.env.PORT || 5000
@@ -13,9 +14,23 @@ const http = require('http');
 const { Server } = require('socket.io');
 
 
-const app=express()
-app.use(express.json())
+// const app=express()
+// app.use(express.json())
 
+const app = express()
+
+const allowedOrigins = [
+    "https://social-media-app-sri-c67d.vercel.app",
+    "http://localhost:3000"
+];
+
+const corsOptions = {
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
 
 //calling db config
 // connectDB()
@@ -29,7 +44,9 @@ connectDB().then(() => {
 const server=http.createServer(app)
 const io=new Server(server,{
     cors:{
-        origin:"*"  //(*)means anyone can access
+        // origin:"*"  //(*)means anyone can access
+         origin: allowedOrigins,
+        methods: ["GET", "POST"]
     }
 })
 io.on('connection', (socket) => {
