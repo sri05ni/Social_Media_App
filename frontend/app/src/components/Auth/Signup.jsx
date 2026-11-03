@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader";
 import Message from "../Message";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import API from "../../axiosConfig";
 
 function Signup() {
     const navigate = useNavigate();
@@ -120,7 +121,8 @@ const handleClose = () => setMessage("");
                 "Content-Type": "application/json"
             }
         }
-        const  {data}=await axios.post("/api/auth/signup",formValues,config)
+        // const  {data}=await axios.post("/api/auth/signup",formValues,config)
+        const  {data}=await API.post("/api/auth/signup",formValues,config)
         localStorage.setItem("userInfo", JSON.stringify(data));
         clearForm();
         navigate(redirect);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import axios from "axios";
+// import axios from "axios";
+import API from "../axiosConfig";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import PostForm from "../components/Posts/PostForm";
@@ -31,7 +32,8 @@ const startChartHandler = async (userId)=>{
       },
     };
 
-    const {data} = await axios.post('/api/chat',{userId},config);
+    // const {data} = await axios.post('/api/chat',{userId},config);
+    const {data} = await API.post('/api/chat',{userId},config);
     console.log("Chat response:", data);
 console.log("Chat ID:", data._id);
     navigate(`/chat/${data._id}`);
@@ -56,7 +58,8 @@ const fetchChats = async ()=>{
       },
     };
 
-    const {data} = await axios.get('/api/chat',config);
+    // const {data} = await axios.get('/api/chat',config);
+    const {data} = await API.get('/api/chat',config);
     setChats(data);
   
   }
@@ -75,7 +78,8 @@ const fetchChats = async ()=>{
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
-      const { data } = await axios.get("/api/posts", config);
+      // const { data } = await axios.get("/api/posts", config);
+      const { data } = await API.get("/api/posts", config);
       setPosts(data);
       setLoading(false);
     } catch (error) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, Button } from "react-bootstrap";
-import axios from "axios";
+// import axios from "axios";
+import API from "../../axiosConfig";
 import { Link, useNavigate } from "react-router-dom";
 import Message from "../Message";
 import Loader from "../Loader";
@@ -23,7 +24,8 @@ function ChatList() {
         },
       };
 
-      const { data } = await axios.get("/api/chat", config);
+      // const { data } = await axios.get("/api/chat", config);
+      const { data } = await API.get("/api/chat", config);
       setChats(data);
     } catch (error) {
       setError(

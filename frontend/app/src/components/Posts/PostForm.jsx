@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Loader from "../Loader";
 import Message from "../Message";
-import axios from "axios";
+// import axios from "axios";
+import API from "../../axiosConfig";
 
 function PostForm({fetchPosts}) {
   const [loading, setLoading] = useState(false);
@@ -29,7 +30,8 @@ function PostForm({fetchPosts}) {
           },
         };
   
-        await axios.post("/api/posts", formData, config);
+        // await axios.post("/api/posts", formData, config);
+        await API.post("/api/posts", formData, config);
         setContent("");
         setImage(null);
         fetchPosts();

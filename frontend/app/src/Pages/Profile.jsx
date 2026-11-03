@@ -9,7 +9,8 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import { useNavigate ,Link} from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import API from "../axiosConfig";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import QRCode from "qrcode";
@@ -49,10 +50,12 @@ function Profile() {
           },
         };
 
-        const { data } = await axios.get("/api/users/profile", config);
+        // const { data } = await axios.get("/api/users/profile", config);
+        const { data } = await API.get("/api/users/profile", config);
         setUser(data);
 
-        const {data:postsData} =await axios.get(`/api/posts/user/${pasredUser._id}`,config);
+        // const {data:postsData} =await axios.get(`/api/posts/user/${pasredUser._id}`,config);
+        const {data:postsData} =await API.get(`/api/posts/user/${pasredUser._id}`,config);
         setUserPosts(postsData)
 
         if (data.twoFactorAuthSecret) {
@@ -104,7 +107,12 @@ function Profile() {
         },
       };
 
-      const { data } = await axios.get(
+      // const { data } = await axios.get(
+      //   `/api/users/search?keyword=${keyword}`,
+      //   config,
+      // );
+
+      const { data } = await API.get(
         `/api/users/search?keyword=${keyword}`,
         config,
       );
@@ -134,7 +142,8 @@ function Profile() {
           Authorization: `Bearer ${parsedUser.token}`,
         },
       };
-      const { data } = await axios.post("/api/auth/enable-2fa", {}, config);
+      // const { data } = await axios.post("/api/auth/enable-2fa", {}, config);
+      const { data } = await API.post("/api/auth/enable-2fa", {}, config);
       //  setSecret(data.secret)
       const otpauthUrl = data.secret;
       QRCode.toDataURL(otpauthUrl, { width: 200, margin: 2 }, (err, url) => {
@@ -179,7 +188,12 @@ function Profile() {
       const formData = new FormData();
       formData.append("profilePicture", profilePicture);
 
-      const { data } = await axios.post(
+      // const { data } = await axios.post(
+      //   "/api/users/profile/upload",
+      //   formData,
+      //   config
+      // );
+      const { data } = await API.post(
         "/api/users/profile/upload",
         formData,
         config
@@ -208,7 +222,8 @@ function Profile() {
           },
         };
     
-        const {data} = await axios.post('/api/chat',{userId},config);
+        // const {data} = await axios.post('/api/chat',{userId},config);
+        const {data} = await API.post('/api/chat',{userId},config);
         navigate(`/chat/${data._id}`);
     
       }
@@ -234,10 +249,12 @@ function Profile() {
           },
         };
   
-        await axios.post(`/api/users/follow/${userId}`, {}, config);
+        // await axios.post(`/api/users/follow/${userId}`, {}, config);
+        await API.post(`/api/users/follow/${userId}`, {}, config);
         setMessage("User followed Successfully");
   
-        const { data } = await axios.get("/api/users/profile", config);
+        // const { data } = await axios.get("/api/users/profile", config);
+        const { data } = await API.get("/api/users/profile", config);
         setUser(data);
       } catch (error) {
         setError(
@@ -263,10 +280,12 @@ function Profile() {
           },
         };
   
-        await axios.post(`/api/users/unfollow/${userId}`, {}, config);
+        // await axios.post(`/api/users/unfollow/${userId}`, {}, config);
+        await API.post(`/api/users/unfollow/${userId}`, {}, config);
         setMessage("User followed Successfully");
   
-        const { data } = await axios.get("/api/users/profile", config);
+        // const { data } = await axios.get("/api/users/profile", config);
+        const { data } = await API.get("/api/users/profile", config);
         setUser(data);
       } catch (error) {
         setError(

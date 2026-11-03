@@ -12,7 +12,8 @@ import {
 import Loader from "../Loader";
 import Message from "../Message";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";  #for  axios.post api call instead we use API
+import API from "../../axiosConfig";
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -121,7 +122,8 @@ function Login() {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post("/api/auth/login", formValues, config);
+      // const { data } = await axios.post("/api/auth/login", formValues, config);
+      const { data } = await API.post("/api/auth/login", formValues, config);
       localStorage.setItem("userInfo", JSON.stringify(data));
       clearForm();
       navigate("/profile");

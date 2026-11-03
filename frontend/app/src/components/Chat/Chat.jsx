@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, ListGroup } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import io from 'socket.io-client';
-import axios from "axios";
+// import axios from "axios";
+import API from "../../axiosConfig";
 import Loader from "../Loader";
 import Message from "../Message";
 
-const ENDPOINT = 'http://localhost:5000';
+// const ENDPOINT = 'http://localhost:5000';
+const ENDPOINT =
+  process.env.REACT_APP_API_URL || "http://localhost:5000";
 let socket;
 
 function Chat() {
@@ -43,7 +46,8 @@ function Chat() {
         },
       };
 
-      const { data } = await axios.get(`/api/chat/${chatId}`, config);
+      // const { data } = await axios.get(`/api/chat/${chatId}`, config);
+      const { data } = await API.get(`/api/chat/${chatId}`, config);
       setMessages(data); // Assuming data contains the array of messages
       setLoading(false);
     } catch (error) {
@@ -69,7 +73,8 @@ function Chat() {
         },
       };
 
-      const { data } = await axios.post(`/api/chat/${chatId}/message`, { content: messageContent }, config);
+      // const { data } = await axios.post(`/api/chat/${chatId}/message`, { content: messageContent }, config);
+      const { data } = await API.post(`/api/chat/${chatId}/message`, { content: messageContent }, config);
       const lastMessage = data.messages[data.messages.length - 1]; // Get the last message
  
       socket.emit('sendMessage', { chatId,  "content":lastMessage.content});
