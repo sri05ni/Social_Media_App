@@ -97,9 +97,14 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
                 <Card.Title>
                   <div className="d-flex align-items-center">
                     <img
+                      // src={
+                      //   post.user.profilePicture ||
+                      //   "https://via.placeholder.com/50"
+                      // }
                       src={
-                        post.user.profilePicture ||
-                        "https://via.placeholder.com/50"
+                        post.user.profilePicture
+                          ? `${process.env.REACT_APP_API_URL}${post.user.profilePicture}`
+                          : "https://via.placeholder.com/50"
                       }
                       alt={post.user.username}
                       className="rounded-circle me-2"

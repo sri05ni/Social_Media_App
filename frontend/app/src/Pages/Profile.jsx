@@ -8,7 +8,7 @@ import {
   Form,
   ListGroup,
 } from "react-bootstrap";
-import { useNavigate ,Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 // import axios from "axios";
 import API from "../axiosConfig";
 import Loader from "../components/Loader";
@@ -28,8 +28,7 @@ function Profile() {
   const handleClose = () => setMessage("");
   const [userPosts, setUserPosts] = useState([]); // State for user posts
 
-  
- useEffect(() => {
+  useEffect(() => {
     const fetchUserProfile = async () => {
       try {
         setLoading(true);
@@ -38,9 +37,7 @@ function Profile() {
         if (!userInfo) {
           navigate("/login");
           return;
-        }
-        else {
-
+        } else {
         }
         const pasredUser = JSON.parse(userInfo);
         const config = {
@@ -55,8 +52,11 @@ function Profile() {
         setUser(data);
 
         // const {data:postsData} =await axios.get(`/api/posts/user/${pasredUser._id}`,config);
-        const {data:postsData} =await API.get(`/api/posts/user/${pasredUser._id}`,config);
-        setUserPosts(postsData)
+        const { data: postsData } = await API.get(
+          `/api/posts/user/${pasredUser._id}`,
+          config,
+        );
+        setUserPosts(postsData);
 
         if (data.twoFactorAuthSecret) {
           const otpauthurl = `otpauth://totp/SecretKey?secret=${data.twoFactorAuthSecret}`;
@@ -67,14 +67,14 @@ function Profile() {
               if (!err) {
                 setQrCodeUrl(url);
               }
-            }
+            },
           );
         }
       } catch (error) {
         setError(
           error.response && error.response.data.message
             ? error.response.data.message
-            : error.message
+            : error.message,
         );
         if (error.response && error.response.status === 401) {
           localStorage.removeItem("userInfo");
@@ -134,8 +134,8 @@ function Profile() {
       setError("");
       setMessage("");
 
-       const userInfo = localStorage.getItem("userInfo");
-       const parsedUser = JSON.parse(userInfo);
+      const userInfo = localStorage.getItem("userInfo");
+      const parsedUser = JSON.parse(userInfo);
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -165,8 +165,7 @@ function Profile() {
     }
   };
 
-
- const uploadProfilePictureHandler = async (e) => {
+  const uploadProfilePictureHandler = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
@@ -196,7 +195,7 @@ function Profile() {
       const { data } = await API.post(
         "/api/users/profile/upload",
         formData,
-        config
+        config,
       );
       setMessage("Profile Picture Updated Successfully");
       setUser({ ...user, profilePicture: data.profilePicture });
@@ -204,99 +203,100 @@ function Profile() {
       setError(
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message
+          : error.message,
       );
     } finally {
       setLoading(false);
     }
   };
 
-   const startChartHandler = async (userId)=>{
-      try{
-        setLoading(true);
-        const userInfo=JSON.parse(localStorage.getItem('userInfo'))
-        const config = {
-          headers: {
-            'Content-Type':'application/json',
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        };
-    
-        // const {data} = await axios.post('/api/chat',{userId},config);
-        const {data} = await API.post('/api/chat',{userId},config);
-        navigate(`/chat/${data._id}`);
-    
-      }
-      catch (error) {
-        setError(error.response && error.response.data.message ? error.response.data.message : error.message);
-      } finally {
-        setLoading(false);
-      }
+  const startChartHandler = async (userId) => {
+    try {
+      setLoading(true);
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      // const {data} = await axios.post('/api/chat',{userId},config);
+      const { data } = await API.post("/api/chat", { userId }, config);
+      navigate(`/chat/${data._id}`);
+    } catch (error) {
+      setError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+      );
+    } finally {
+      setLoading(false);
     }
-  
+  };
 
   const followUser = async (userId) => {
-      try {
-        setLoading(true);
-  
-        const userInfo = localStorage.getItem("userInfo");
-        const parsedUser = JSON.parse(userInfo);
-  
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${parsedUser.token}`,
-          },
-        };
-  
-        // await axios.post(`/api/users/follow/${userId}`, {}, config);
-        await API.post(`/api/users/follow/${userId}`, {}, config);
-        setMessage("User followed Successfully");
-  
-        // const { data } = await axios.get("/api/users/profile", config);
-        const { data } = await API.get("/api/users/profile", config);
-        setUser(data);
-      } catch (error) {
-        setError(
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-    const unfollowUser = async (userId) => {
-      try {
-        setLoading(true);
-  
-        const userInfo = localStorage.getItem("userInfo");
-        const parsedUser = JSON.parse(userInfo);
-  
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${parsedUser.token}`,
-          },
-        };
-  
-        // await axios.post(`/api/users/unfollow/${userId}`, {}, config);
-        await API.post(`/api/users/unfollow/${userId}`, {}, config);
-        setMessage("User followed Successfully");
-  
-        // const { data } = await axios.get("/api/users/profile", config);
-        const { data } = await API.get("/api/users/profile", config);
-        setUser(data);
-      } catch (error) {
-        setError(
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
+    try {
+      setLoading(true);
+
+      const userInfo = localStorage.getItem("userInfo");
+      const parsedUser = JSON.parse(userInfo);
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${parsedUser.token}`,
+        },
+      };
+
+      // await axios.post(`/api/users/follow/${userId}`, {}, config);
+      await API.post(`/api/users/follow/${userId}`, {}, config);
+      setMessage("User followed Successfully");
+
+      // const { data } = await axios.get("/api/users/profile", config);
+      const { data } = await API.get("/api/users/profile", config);
+      setUser(data);
+    } catch (error) {
+      setError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+  const unfollowUser = async (userId) => {
+    try {
+      setLoading(true);
+
+      const userInfo = localStorage.getItem("userInfo");
+      const parsedUser = JSON.parse(userInfo);
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${parsedUser.token}`,
+        },
+      };
+
+      // await axios.post(`/api/users/unfollow/${userId}`, {}, config);
+      await API.post(`/api/users/unfollow/${userId}`, {}, config);
+      setMessage("User followed Successfully");
+
+      // const { data } = await axios.get("/api/users/profile", config);
+      const { data } = await API.get("/api/users/profile", config);
+      setUser(data);
+    } catch (error) {
+      setError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <Container>
       <Row>
@@ -319,7 +319,12 @@ function Profile() {
             <div className="text-center">
               {user.profilePicture ? (
                 <img
-                  src={user.profilePicture}
+                  // src={user.profilePicture}
+                  src={
+                    user.profilePicture
+                      ? `${process.env.REACT_APP_API_URL}${user.profilePicture}`
+                      : "https://via.placeholder.com/150"
+                  }
                   alt="Profile"
                   className="rounded-circle"
                   width="100"
@@ -454,9 +459,15 @@ function Profile() {
                           <Link to={`/user/${follower._id}`}>
                             <Card.Img
                               variant="top"
+                              // src={
+                              //   follower.profilePicture ||
+                              //   "https://via.placeholder.com/50"
+                              // }
+
                               src={
-                                follower.profilePicture ||
-                                "https://via.placeholder.com/50"
+                                follower.profilePicture
+                                  ? `${process.env.REACT_APP_API_URL}${follower.profilePicture}`
+                                  : "https://via.placeholder.com/50"
                               }
                               alt={follower.username}
                               className="rounded-circle me-2"
@@ -503,9 +514,15 @@ function Profile() {
                           <Link to={`/user/${following._id}`}>
                             <Card.Img
                               variant="top"
+                              // src={
+                              //   following.profilePicture ||
+                              //   "https://via.placeholder.com/50"
+                              // }
+
                               src={
-                                following.profilePicture ||
-                                "https://via.placeholder.com/50"
+                                following.profilePicture
+                                  ? `${process.env.REACT_APP_API_URL}${following.profilePicture}`
+                                  : "https://via.placeholder.com/50"
                               }
                               alt={following.username}
                               className="rounded-circle me-2"
