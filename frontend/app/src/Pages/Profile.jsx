@@ -562,7 +562,9 @@ function Profile() {
                     <Link to={`/posts/${post._id}`}>
                       <Card.Img
                         variant="top"
-                        src={post.image}
+                        // src={post.image}
+                    src={`${process.env.REACT_APP_API_URL}${post.image}`}
+
                         alt="Post image"
                         className="img-fluid"
                         style={{
