@@ -18,7 +18,13 @@ app.use(express.json())
 
 
 //calling db config
-connectDB()
+// connectDB()
+
+connectDB().then(() => {
+    server.listen(PORT, () => {
+        console.log(`Server is running at port ${PORT}`);
+    });
+});
 
 const server=http.createServer(app)
 const io=new Server(server,{
@@ -54,4 +60,4 @@ app.use('/api/users',userRoutes)
 app.use('/api/posts',postRoutes)
 app.use('/api/chat',chatRoutes)
 
-server.listen(PORT,console.log("server is running at port ",PORT))
+// server.listen(PORT,console.log("server is running at port ",PORT))
