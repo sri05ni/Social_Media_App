@@ -144,7 +144,8 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
                 {post?.image && (
                   <Card.Img
                     variant="top"
-                    src={post.image}
+                    // src={post.image}
+                    src={`${process.env.REACT_APP_API_URL}${post.image}`}
                     alt="Post image"
                     className="card-img-top"
                     style={{
