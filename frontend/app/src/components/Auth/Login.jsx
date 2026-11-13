@@ -137,8 +137,9 @@ function Login() {
       const { data } = await API.post("/api/auth/login", formValues, config);
       localStorage.setItem("userInfo", JSON.stringify(data));
       clearForm();
-      navigate("/profile");
-    window.location.reload();
+      // navigate("/profile");
+      navigate("/profile", { replace: true });
+    // window.location.reload();
 
     } catch (error) {
       setError(
