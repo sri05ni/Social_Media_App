@@ -301,7 +301,7 @@ function Profile() {
     <Container>
       <Row>
         <Col md="5">
-          <Card className="mt-4 p-3">
+          <Card className="mt-4 p-3 btn-outline-primary">
             <h3 className="text-center bg-light text-dark mt-2">Welcome</h3>
             {message && (
               <Message variant="success" onClose={() => setMessage("")}>
@@ -345,16 +345,16 @@ function Profile() {
                   onChange={(e) => setProfilePicture(e.target.files[0])}
                 ></Form.Control>
               </Form.Group>
-              <Button type="submit" variant="light" className="mt-3 btn-sm">
+              <Button type="submit" variant="dark" className="mt-3 btn-sm">
                 Upload/Edit Profile Picture
               </Button>
             </Form>
 
             <ul className="list-group mt-3">
-              <li className="list-group-item list-group-item-light  d-flex justify-content-between align-items-center">
+              <li className="list-group-item list-group-item-primary  d-flex justify-content-between align-items-center">
                 <strong>Username:</strong> {user.username}
               </li>
-              <li className="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
+              <li className="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
                 <strong>Email:</strong> {user.email}
               </li>
               {!user.twoFactorAuth && (
@@ -398,7 +398,7 @@ function Profile() {
         </Col>
 
         <Col md="7">
-          <Card className="mt-4 p-3">
+          <Card className="mt-4 p-3 btn-outline-primary">
             <h3 className="text-center bg-light text-dark mt-2">
               Search Users
             </h3>
@@ -444,7 +444,7 @@ function Profile() {
 
             <Row>
               <Col md={6}>
-                <h5 className="mt-4 bg-light p-2 text-center">
+                <h5 className="mt-4 bg-dark btn-outline-primary p-2 text-center">
                   Followers{" "}
                   <span class="badge bg-primary rounded-pill">
                     {user.followers?.length}
@@ -486,7 +486,7 @@ function Profile() {
 
                           <Button
                             variant="success"
-                            className="ms-2 btn-sm"
+                            className="ms-2 btn-sm text-dark"
                             onClick={() => followUser(follower._id)}
                           >
                             Unfollow
@@ -499,7 +499,7 @@ function Profile() {
               </Col>
 
               <Col md={6}>
-                <h5 className="mt-4 bg-light p-2 text-center">
+                <h5 className="mt-4 bg-dark btn-outline-primary p-2 text-center">
                   Following{" "}
                   <span class="badge bg-primary rounded-pill">
                     {user.following?.length}
@@ -554,8 +554,8 @@ function Profile() {
               </Col>
             </Row>
             <hr />
-            <h3 className="text-center mt-4">Your Posts</h3>
-            <Row className="g-2">
+            <h3 className="text-center  mt-4">Your Posts</h3>
+            <Row className="g-2 bg-primary">
               {userPosts.map((post) => (
                 <Col key={post._id} xs={4}>
                   <Card>

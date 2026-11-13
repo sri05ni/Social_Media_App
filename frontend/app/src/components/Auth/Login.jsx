@@ -95,16 +95,27 @@ function Login() {
     );
   };
 
+  // const showPassword = () => {
+  //   var x = document.getElementById("pass1");
+  //   if (x.type === "password") {
+  //     x.type = "text";
+  //     changeshow(`fa fa-eye`);
+  //   } else {
+  //     x.type = "password";
+  //     changeshow(`fa fa-eye-slash`);
+  //   }
+  // };
   const showPassword = () => {
-    var x = document.getElementById("pass1");
-    if (x.type === "password") {
-      x.type = "text";
-      changeshow(`fa fa-eye`);
-    } else {
-      x.type = "password";
-      changeshow(`fa fa-eye-slash`);
-    }
-  };
+  var x = document.getElementById("pass1");
+
+  if (x.type === "password") {
+    x.type = "text";
+    changeshow("fa fa-eye");
+  } else {
+    x.type = "password";
+    changeshow("fa fa-eye-slash");
+  }
+};
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!isFormValid()) {
@@ -156,8 +167,8 @@ function Login() {
           {loading ? (
             <Loader />
           ) : (
-            <Col md="6">
-              <Form onSubmit={submitHandler}>
+            <Col md="6" >
+              <Form onSubmit={submitHandler} >
                 <br />
 
                 <h3 className="text-center">Login Here</h3>
@@ -201,7 +212,7 @@ function Login() {
                     <InputGroup.Checkbox onClick={showPassword} />{" "}
                     <Form.Control
                       required
-                      type="password"
+                      type={show === "fa fa-eye" ? "text" : "password"}
                       name="password"
                       id="pass1"
                       value={formValues.password}
@@ -241,8 +252,8 @@ function Login() {
                 </Form.Group>
 
                 <Button
-                  className="mt-3"
-                  variant="success"
+                  className="btn btn-outline-secondary"
+                  variant="secondary"
                   disabled={!isFormValid()}
                   type="submit"
                 >
@@ -252,8 +263,8 @@ function Login() {
 
               <Row className="py-3">
                 <Col>
-                  New User?
-                  <Link to="/signup">Signup</Link>
+                  New User? 
+                  <Link to="/signup">  Signup</Link>
                 </Col>
               </Row>
             </Col>

@@ -54,10 +54,10 @@ function ChatList() {
         <>
           <h5>Chat Users</h5>
           <hr />
-          <ListGroup>
+          <ListGroup className="btn-outline-secondary">
             {chats.map((chat) => (
               <ListGroup.Item key={chat._id}>
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center bg-dark">
                   {chat.users.map((user) => (
                     <div
                       key={user._id}

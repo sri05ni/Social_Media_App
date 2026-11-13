@@ -92,7 +92,7 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
       ) : (
         posts?.map((post) => (
           <>
-            <Card key={post._id} className="my-3">
+            <Card key={post._id} className="my-3 card text-white bg-secondary mb-3 rounded-4">
               <Card.Body>
                 <Card.Title>
                   <div className="d-flex align-items-center">
@@ -127,7 +127,7 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
                     )}
                     &nbsp; &nbsp;
                     <Button
-                      variant="light"
+                      variant="dark" 
                       onClick={() => startChartHandler(post.user._id)}
                     >
                       Chat
@@ -158,13 +158,13 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
               </Card.Body>
 
               <div
-                className="accordion accordion-flush"
+                className="accordion accordion-flush rounded-4"
                 id={`accordionFlushExample-${post._id}`}
               >
-                <div className="accordion-item">
+                <div className="accordion-item rounded-4">
                   <h2 className="accordion-header">
                     <button
-                      className="accordion-button collapsed"
+                      className="accordion-button collapsed rounded-4"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target={`#flush-collapseOne-${post._id}`}

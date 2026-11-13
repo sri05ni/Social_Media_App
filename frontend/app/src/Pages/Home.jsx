@@ -111,7 +111,7 @@ const fetchChats = async ()=>{
       <Row>
         <Col md={3}></Col>
         <Col md={6}>
-          <h3 className="text-center bg-light text-dark mt-2">Upload Posts</h3>
+          <h3 className="text-center bg-dark text-secondary mt-2">Upload Posts</h3>
           <PostForm fetchPosts={fetchPosts} />
           <hr />
           <PostList posts={posts} fetchPosts={fetchPosts} startChartHandler={startChartHandler} />
