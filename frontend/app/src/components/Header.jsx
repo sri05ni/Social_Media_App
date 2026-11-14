@@ -6,17 +6,31 @@ function Header() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const userInfo = localStorage.getItem("userInfo");
+  //   if (userInfo) {
+  //     setUser(JSON.parse(userInfo));
+  //   }
+  // }, []);
   useEffect(() => {
+  const updateUser = () => {
     const userInfo = localStorage.getItem("userInfo");
-    if (userInfo) {
-      setUser(JSON.parse(userInfo));
-    }
-  }, []);
+    setUser(userInfo ? JSON.parse(userInfo) : null);
+  };
+
+  updateUser();
+
+  window.addEventListener("userInfoUpdated", updateUser);
+
+  return () => {
+    window.removeEventListener("userInfoUpdated", updateUser);
+  };
+}, []);
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
     setUser(null);
-    // navigate("/login")
-    window.location.reload();
+    navigate("/login")
+    // window.location.reload();
   };
   return (
     <>

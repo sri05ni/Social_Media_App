@@ -136,6 +136,7 @@ function Login() {
       // const { data } = await axios.post("/api/auth/login", formValues, config);
       const { data } = await API.post("/api/auth/login", formValues, config);
       localStorage.setItem("userInfo", JSON.stringify(data));
+      window.dispatchEvent(new Event("userInfoUpdated"));
       clearForm();
       // navigate("/profile");
       navigate("/profile", { replace: true });
